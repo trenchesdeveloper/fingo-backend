@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: fingo_postgres
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: fingo
+    ports:
+      - "5433:5432"
