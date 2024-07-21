@@ -18,3 +18,6 @@ migrateup:
 
 migratedown:
 	migrate -path db/migrations -database "postgresql://root:secret@localhost:5433/fingo?sslmode=disable" -verbose down
+
+sqlc:
+	sqlc generate
