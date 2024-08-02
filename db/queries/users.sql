@@ -15,11 +15,14 @@ LIMIT $1 OFFSET $2;
 
 -- name: UpdateUserPassword :one
 UPDATE users
-SET hashed_password = $1
-WHERE id = $2
+SET hashed_password = $1, updated_at = $2
+WHERE id = $3
 RETURNING *;
 
 -- name: DeleteUser :exec
 DELETE FROM users WHERE id = $1;
+
+-- name: DeleteAllUsers :exec
+DELETE FROM users;
 
 
