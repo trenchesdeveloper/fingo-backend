@@ -21,3 +21,9 @@ migratedown:
 
 sqlc:
 	sqlc generate
+
+start:
+	CompileDaemon -command="./fingo-backend"
+
+test:
+	go test -v -cover ./...

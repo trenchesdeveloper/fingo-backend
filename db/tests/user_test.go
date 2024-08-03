@@ -2,14 +2,14 @@ package db_test
 
 import (
 	"context"
-	"github.com/trenchesdeveloper/fingo/utils"
+	"github.com/trenchesdeveloper/fingo-backend/utils"
 	"log"
 	"sync"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	db "github.com/trenchesdeveloper/fingo/db/sqlc"
+	db "github.com/trenchesdeveloper/fingo-backend/db/sqlc"
 )
 
 var wg sync.WaitGroup
