@@ -15,9 +15,11 @@ dropdb:
 	docker exec -it fingo_postgres dropdb fingo
 migrateup:
 	migrate -path db/migrations -database "postgresql://root:secret@localhost:5433/fingo?sslmode=disable" -verbose up
+	migrate -path db/migrations -database "postgresql://root:secret@localhost:5434/fingo?sslmode=disable" -verbose up
 
 migratedown:
 	migrate -path db/migrations -database "postgresql://root:secret@localhost:5433/fingo?sslmode=disable" -verbose down
+	migrate -path db/migrations -database "postgresql://root:secret@localhost:5434/fingo?sslmode=disable" -verbose down
 
 sqlc:
 	sqlc generate

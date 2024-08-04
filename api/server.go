@@ -11,9 +11,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
+var tokenController *utils.JWTToken
+
 type Server struct {
 	queries *db.Queries
 	router  *gin.Engine
+	config  *utils.Config
 }
 
 func NewServer(envPath string) *Server {
@@ -23,7 +26,7 @@ func NewServer(envPath string) *Server {
 		panic(fmt.Sprintf("cannot load config: %v", err))
 	}
 
-	conn, err := sql.Open(config.DBdriver, config.DB_source)
+	conn, err := sql.Open(config.DBdriver, config.DB_source_live)
 
 	if err != nil {
 		panic(fmt.Sprintf("cannot connect to db: %v", err))
@@ -33,9 +36,12 @@ func NewServer(envPath string) *Server {
 
 	g := gin.Default()
 
+	tokenController = utils.NewJWTToken(config)
+
 	return &Server{
 		queries: queries,
 		router:  g,
+		config:  config,
 	}
 }
 
@@ -45,6 +51,11 @@ func (s *Server) Start(port int) {
 			"message": "Welcome to Fingo API",
 		})
 	})
+
+	user := User{}
+	auth := Auth{}
+	user.router(s)
+	auth.router(s)
 
 	s.router.Run(fmt.Sprintf(":%d", port))
 }
